@@ -1,16 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Dimensions } from 'react-native';
+import WeatherColumn from './components/WeatherColumn';
+import { faCloud } from '@fortawesome/free-solid-svg-icons';
+import { faFontAwesome } from '@fortawesome/free-brands-svg-icons';
+// in App.js
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faSquareCheck } from '@fortawesome/free-solid-svg-icons/faSquareCheck'
+
+library.add(fab, faSquareCheck, faCloud)
 
 const { width, height } = Dimensions.get('window');
-
-
-
 function kelvinToFahrenheit(kelvin: number): number {
   const fahrenheit = Math.round((kelvin - 273.15) * 9/5 + 32);
   return fahrenheit;
 }
 
+// Define your screens
+function Screen1() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Screen 1</Text>
+    </View>
+  );
+}
+
+function Screen2() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Screen 2</Text>
+    </View>
+  );
+}
 
 function App(props: any): JSX.Element {
   const [data, setData] = useState<string | null>(null);
@@ -32,7 +54,6 @@ function App(props: any): JSX.Element {
       clearInterval(timer);
     };
   }, []);
-  
   
   useEffect(() => {
     fetch('http://api.openweathermap.org/data/2.5/weather?q=Sacramento,us&APPID=021d13be2fe6ed4d7093015004d33566')
@@ -65,8 +86,8 @@ function App(props: any): JSX.Element {
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View style={styles.page}>
-          <View style={[styles.container]}>
+        <View style={[styles.page]}>
+          <View style={[styles.container, {marginTop: 40}]}>
             <Text style={{fontSize: 80, color: 'white'}}>{temp}°</Text>
             <Text style={{fontSize: 20, marginLeft: 5, marginTop: -2, color: 'white'}}>{status}</Text>
           </View>
@@ -78,6 +99,26 @@ function App(props: any): JSX.Element {
               {currentday}{', '}
               {currentDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}
             </Text>
+          </View>
+          <View style={[styles.roundContainer, {marginTop: 15}]}>
+            <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+              <WeatherColumn time='12 AM' icon='cloud' temp={temp}/>
+            </ScrollView>
           </View>
         </View>
       </ScrollView>
@@ -94,6 +135,12 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 10,
+  },
+  roundContainer: {
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#3d3f4e',
+    flexDirection: 'row',
   },
 });
 
