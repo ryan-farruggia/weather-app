@@ -6,7 +6,7 @@ function WeatherColumn(props: any) {
   return (
     <View style={[styles.container]}>
         <Text style={{fontSize: 12}}>{props.time}</Text>
-        <FontAwesomeIcon size={23} style={{marginTop: 10}} icon={props.icon} color={'white'} />
+        <FontAwesomeIcon size={23} style={{marginTop: 10}} icon={props.icon} color={props.color} />
         <View style={{marginTop: 10}}>
             <Text style={{fontWeight: '600'}}>{props.temp}°</Text>
         </View>
